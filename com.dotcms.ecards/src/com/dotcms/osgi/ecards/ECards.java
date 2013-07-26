@@ -106,8 +106,8 @@ public class ECards {
 	public static final String FORM_MESSAGE_FIELD_VAR_NAME = "message";
 	public static final String FORM_MESSAGE_FIELD = "Message";
 	public static final String FORM_MESSAGE_FIELD_HINT = "Write your message";
-
-	public static final String FORM_JAVASCRIPTS_FIELD_VAR_NAME = "scripts";
+    
+    public static final String FORM_JAVASCRIPTS_FIELD_VAR_NAME = "scripts";
 	public static final String FORM_JAVASCRIPTS_FIELD = "Options";
 	public static final String FORM_JAVASCRIPTS_FIELD_HINT = "";
 	public static final String FORM_JAVASCRIPTS_FIELD_VALUES = "";
@@ -131,7 +131,7 @@ public class ECards {
 	 */
 	public static final String ECARD_ADMIN_ROLE_NAME = "eCards Admin";
 	public static final String ECARD_ADMIN_ROLE_KEY= "eCard";
-	public static final String ECARD_ADMIN_ROLE_DESCRIPTION = "This role receive email notification of ecards to print";
+	public static final String ECARD_ADMIN_ROLE_DESCRIPTION = "This role receives email notifications of ecards to print";
 
 	/**
 	 * Folders
@@ -356,8 +356,8 @@ public class ECards {
 			FieldFactory.saveField(message);
 			FieldsCache.addField(message);
 		}
-
-		Field scripts = form.getFieldVar(FORM_JAVASCRIPTS_FIELD_VAR_NAME);
+        
+        Field scripts = form.getFieldVar(FORM_JAVASCRIPTS_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(scripts) || !UtilMethods.isSet(scripts.getInode())) {
 			scripts = new Field(FORM_JAVASCRIPTS_FIELD,Field.FieldType.CUSTOM_FIELD,Field.DataType.LONG_TEXT,form,false,false,false,15,"", "", "", false, false, false);
 			scripts.setVelocityVarName(FORM_JAVASCRIPTS_FIELD_VAR_NAME);

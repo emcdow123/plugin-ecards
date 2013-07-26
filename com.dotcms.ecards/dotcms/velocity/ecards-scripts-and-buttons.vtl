@@ -2,7 +2,6 @@
 Max. amount of characters allowed 250.
 </div>
 <div id="ecard-buttons-area">
-  <button dojoType="dijit.form.Button" type="button" id="printButton" onclick="ecardPprint();" >Print</button>
   <button dojoType="dijit.form.Button" type="button" id="previewBUtton" onclick="ecardPreview();" >Preview</button>
 </div>
 <div id="ecard-preview" style="display:none;">
@@ -22,45 +21,7 @@ Max. amount of characters allowed 250.
   #end
 #end
 
-<script type="text/javascript">
-//Print the ecard  
-function ecardPprint(){
-  var image = document.getElementById('imageInode').value;
-    var toUser = document.getElementById('recipient').value;
-    var fromUser = document.getElementById('name').value;
-    var message = tinyMCE.getInstanceById('message').getContent();
-	var imageHeight = document.getElementById('imageHeight').value;
-	var imageWidth  = document.getElementById('imageWidth').value;
-    
-    if(image.length == 0 || toUser.length == 0 || fromUser.length ==0 || message.lenght == 0){
-        alert('Please, fill all the required fields first');
-    }else{
-    var windowUrl = 'about:blank';
-    var windowName = 'Ecard' + new Date().getTime();
-	
-	var tempWidth = 720;
-	var tempHeight = Math.ceil((imageHeight * tempWidth) / imageWidth);
-	
-    //eCard print
-    var eCardPrint= window.open(windowUrl,windowName,'left=300,top=300,right=500,bottom=500,width='+ imageWidth +',height=' + imageHeight);
-    eCardPrint.document.write('<html><head><link href="http://${imageHost.hostName}/ecards/css/ecards-styles.css" rel="stylesheet" type="text/css" /></head><body>');
-    eCardPrint.document.write('<div id="ecard-print-info">');
-    eCardPrint.document.write('<div id="ecard-print-from"><h3>From: '+fromUser+'</h3></div>');
-    eCardPrint.document.write('<div id="ecard-print-to"><h3>To: '+toUser+'</h3></div>');
-    eCardPrint.document.write('</div>');
-    eCardPrint.document.write('<div id="ecard-print-background" class="print" style="width:' + tempWidth + 'px; height:' +tempHeight+ 'px; background-image:url(/contentAsset/image/'+image+'/fileAsset/byInode/1/filter/Resize/resize_w/'+ tempWidth + '/resize_h/'+ tempHeight +'/)">');
-    //eCardPrint.document.write('<div id="ecard-print-from"><h3>From: '+fromUser+'</h3></div>');
-    //eCardPrint.document.write('<div id="ecard-print-to"><h3>To: '+toUser+'</h3></div>');
-    eCardPrint.document.write('<div id="ecard-print-body">'+message+'</div>');
-    eCardPrint.document.write('</div>');    
-    eCardPrint.document.write('</body></html>');
-    eCardPrint.document.close();
-    eCardPrint.focus();
-    eCardPrint.print();
-    eCardPrint.close();
-  }
-}
-
+<script type="text"javascript">
 //Show the ecard preview
 function ecardPreview(){
     var image = document.getElementById('imageInode').value;
