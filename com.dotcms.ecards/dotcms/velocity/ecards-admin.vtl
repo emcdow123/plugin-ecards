@@ -1,0 +1,94 @@
+<style type="text/css">
+	#eCardsTable th {
+		border: 2px solid black;
+		padding: 0px;
+		background-color: black;
+		color: white;
+		width: 20%;
+		}
+	#eCardsTable{
+		width: 100%;
+		}
+	#printerImage{
+		height: 28px;
+		}
+</style>
+
+
+
+<div id="eCardsAdminPanel">
+	<div id="eCardsAdmincontrols">
+                <form id="eCardsAdminSearchForm">
+                        <label for="eCardStatus">Select a Status</label>
+		        
+                        #set($structure = $structures.findStructureByName("eCards"))
+                        #set($fields = $structures.getFields($structure))
+                        #set($fieldDefaultValue = "pending")
+                        #set($selField = $structures.findFieldByVarName($structure,"status"))
+                        #set($valuesSplit = $selField.values.split("\n"))
+
+                        <select id="eCardStatus" name="eCardStatus">
+                            
+                                <option value="">Select an option</option>
+                                #foreach($value in $valuesSplit)
+                                    #set($labelValue = $value.split('\|'))
+                                    #set($label = $listTool.get($labelValue, 0).trim())
+                                    #if($listTool.size($value.split("|")) > 1)
+                                        #set($value = $listTool.get($labelValue, 1).trim())
+                                    #else
+                                        #set($value = $listTool.get($labelValue, 0).trim())
+                                    #end
+                                    <option id="${selField.velocityVarName}$value" value="$value" #if("$fieldDefaultValue"=="$value")selected="selected"#end >$!label</option>
+                                #end
+                        </select>
+                </form>
+	</div>
+	
+        <script type="text/javascript">
+          ${esc.d}(document).ready(function() {
+            var showeCards = function(stat) {
+                var e = document.getElementById("eCardStatus");
+                var status = e.options[e.selectedIndex].value;
+                
+                ${esc.d}.ajax({
+                    type: 'GET',
+                    url: '/api/content/render/false/query/+structureName:eCards%20+(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797%20conhost:SYSTEM_HOST)%20+eCards.status:*' + status + '*%20+languageId:1%20%20+deleted:false%20%20+working:true/orderby/undefined%20desc',
+                    dataType: 'json',
+                    success: function(feed) {
+                        ${esc.d}('#eCardsTable tbody').html("");
+                        for(var i=0, l=feed.contentlets.length; i < l && i < 16; ++i){
+                            ${esc.d}('#eCardsTable tbody').append(
+                                "<tr>" +
+                                "<td>" + feed.contentlets[i].senderEmail + "</td>" +
+                                "<td>" + feed.contentlets[i].recipient + "</td>" +
+                                "<td>" + feed.contentlets[i].deliveryLocation + "</td>" +
+                                "<td>" + feed.contentlets[i].deliveryEmail + "</td>" +
+                                "<td>" + feed.contentlets[i].status + "</td>" +
+                                "</tr>"
+                            );
+                        }
+                    }
+                });
+			};
+            $('${esc.h}eCardStatus').change(function() {
+                var stat = $(this).val();
+                showeCards(stat);
+            });
+            showeCards(null);
+        });
+    </script>
+
+	<div id="eCardsAdminTable">
+            <table id="eCardsTable" name="eCardsTable">
+                <thead>
+	            <th>From</th>
+	            <th>Deliver To</th>
+	            <th>Room</th>
+	            <th>To Email</th>
+	            <th>Current Action</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table> 
+	</div>
+</div>
