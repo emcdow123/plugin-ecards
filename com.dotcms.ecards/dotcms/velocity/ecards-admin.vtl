@@ -12,6 +12,10 @@
 	#printerImage{
 		height: 28px;
 		}
+        
+    .print{
+     float: right;
+     }
 </style>
 
 
@@ -45,7 +49,28 @@
 	</div>
 	
         <script type="text/javascript">
+        
+            var printEcard = function(id){
+                ${esc.d}.ajax({
+                    type: 'GET',
+                    url: '/api/content/inode/' + id,
+                    dataType: 'json',
+                    success: function(feed) {
+                        var eCardPrint = window.open();
+                        eCardPrint.document.write("<style>p{color: red}</style>")
+                        eCardPrint.document.write("<p>From: " + feed.contentlets[0].name + "</p>");
+                        eCardPrint.document.write("<p>To: " + feed.contentlets[0].recipient + "</p>");
+                        eCardPrint.document.write("<p>Message: " + feed.contentlets[0].message + "</p>");
+                        eCardPrint.document.write("<img src='/contentAsset/raw-data/" + feed.contentlets[0].image + "/fileAsset'></img>");
+                        eCardPrint.document.close();
+                        eCardPrint.focus();
+                        eCardPrint.print();
+                        }
+                    });
+                };
+                
           ${esc.d}(document).ready(function() {
+            
             var showeCards = function(stat) {
                 var e = document.getElementById("eCardStatus");
                 var status = e.options[e.selectedIndex].value;
@@ -55,7 +80,7 @@
                     url: '/api/content/render/false/query/+structureName:eCards%20+(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797%20conhost:SYSTEM_HOST)%20+eCards.status:*' + status + '*%20+languageId:1%20%20+deleted:false%20%20+working:true/orderby/undefined%20desc',
                     dataType: 'json',
                     success: function(feed) {
-                        ${esc.d}('#eCardsTable tbody').html("");
+                        ${esc.d}('#eCardsTable tbody').empty();
                         for(var i=0, l=feed.contentlets.length; i < l && i < 16; ++i){
                             ${esc.d}('#eCardsTable tbody').append(
                                 "<tr>" +
@@ -63,17 +88,24 @@
                                 "<td>" + feed.contentlets[i].recipient + "</td>" +
                                 "<td>" + feed.contentlets[i].deliveryLocation + "</td>" +
                                 "<td>" + feed.contentlets[i].deliveryEmail + "</td>" +
-                                "<td>" + feed.contentlets[i].status + "</td>" +
+                                "<td>" + feed.contentlets[i].status + "   <button value='" + feed.contentlets[i].inode + "' name='print' id='print' class='print'>Print</button></td>" +
                                 "</tr>"
                             );
                         }
+                        
+                        $('.print').click(function() {
+                            var node = $(this).val(); 
+                            printEcard(node);
+                            });
                     }
                 });
 			};
+            
             $('${esc.h}eCardStatus').change(function() {
                 var stat = $(this).val();
                 showeCards(stat);
-            });
+                });            
+            
             showeCards(null);
         });
     </script>
