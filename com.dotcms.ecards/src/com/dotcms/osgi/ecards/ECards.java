@@ -59,7 +59,11 @@ public class ECards {
 	public static final String STRUCTURE_FORM_VAR_NAME = "eCards";
 	public static final String STRUCTURE_FORM_NAME = "eCards";
 	public static final String STRUCTURE_FORM_DESCRIPTION = "eCards Forms Structure";
-
+    
+    public static final String FORM_ENTITY_FIELD_VAR_NAME = "entity";
+    public static final String FORM_ENTITY_FIELD = "Entity";
+    public static final String FORM_ENTITY_FIELD_HINT = "";
+    
 	public static final String FORM_NAME_FIELD_VAR_NAME = "name";
 	public static final String FORM_NAME_FIELD = "Your Name";
 	public static final String FORM_NAME_FIELD_HINT = "";
@@ -248,6 +252,13 @@ public class ECards {
 			FieldFactory.saveField(hostField);
 		}
 
+        Field entity = form.getFieldVar(FORM_ENTITY_FIELD_VAR_NAME);
+        if(!UtilMethods.isSet(entity) || !UtilMethods.isSet(entity.getInode())) {
+            entity = new Field(FORM_ENTITY_FIELD_NAME,Field.FieldType.HIDDEN,Field.DataType.TEXT,form,false,false,false,5,"", "", "", true, true, true);
+            entity.setVelocityVarName(FORM_ENTITY_FIELD_VAR_NAME);
+            FieldFactory.saveField(entity);
+        }
+        
 		Field status = form.getFieldVar(FORM_STATUS_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(status) || !UtilMethods.isSet(status.getInode())) {
 			status = new Field(FORM_STATUS_FIELD,Field.FieldType.SELECT,Field.DataType.TEXT,form,true,true,true,5,"", "", "", false, false, false);

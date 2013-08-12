@@ -6,19 +6,26 @@
 		color: white;
 		width: 20%;
 		}
+        
 	#eCardsTable{
 		width: 100%;
 		}
+        
 	#printerImage{
 		height: 28px;
 		}
         
     .print{
-     float: right;
+        float: right;
+     }
+     
+     label {
+        display: inline;
      }
 </style>
 
-
+<link rel="stylesheet" type="text/css" href="/ecards/css/jquery-ui-1.10.3.custom.min.css" />
+<script type="text/javascript" src="/ecards/js/jquery-ui-1.10.3.custom.min.js"></script>
 
 <div id="eCardsAdminPanel">
 	<div id="eCardsAdmincontrols">
@@ -34,6 +41,7 @@
                         <select id="eCardStatus" name="eCardStatus">
                             
                                 <option value="">Select an option</option>
+                                
                                 #foreach($value in $valuesSplit)
                                     #set($labelValue = $value.split('\|'))
                                     #set($label = $listTool.get($labelValue, 0).trim())
@@ -44,7 +52,14 @@
                                     #end
                                     <option id="${selField.velocityVarName}$value" value="$value" #if("$fieldDefaultValue"=="$value")selected="selected"#end >$!label</option>
                                 #end
+                                
                         </select>
+                        
+                        <label for="startDate">Select a Start Date</label>
+                        <input type="text" name="startDate" id="startDate" />
+                        
+                        <label for="endDate">Select an End Date</label>
+                        <input type="text" name="endDate" id="endDate" />
                 </form>
 	</div>
 	
@@ -80,6 +95,9 @@
                 };
                 
           ${esc.d}(document).ready(function() {
+            
+            $("${esc.h}startDate").datepicker();
+            $("${esc.h}endDate").datepicker();
             
             var showeCards = function(stat) {
                 var e = document.getElementById("eCardStatus");
