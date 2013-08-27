@@ -380,11 +380,11 @@ public class ECards {
 		}
         
         Field submittedDate = form.getFieldVar(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
-        if(!UtilMethods.isSet(currentDate) || !UtilMethods.isSet(currentDate.getInode())) {
-            submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD,Field.FieldType.CUSTOM_FIELD,Field,DataType.LONG_TEXT,form,false,false, true, 17, false, false, false);
+        if(!UtilMethods.isSet(submittedDate) || !UtilMethods.isSet(submittedDate.getInode())) {
+            submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD,Field.FieldType.CUSTOM_FIELD,Field.DataType.TEXT,form,false,false, true, 17, "", "", "", false, false, false);
             submittedDate.setVelocityVarName(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
             submittedDate.setHint(FORM_SUBMITTED_DATE_FIELD_HINT);
-            String filePath = "#dotParse('//" + host.getHostName() + "/ecards/velocity/ecards-created-date.vtl')";
+            String filePath = "#dotParse('//" + host.getHostname() + "/ecards/velocity/ecards-created-date.vtl')";
             submittedDate.setValues(filePath);
             submittedDate.setFieldRelationType("");
             FieldFactory.saveField(submittedDate);

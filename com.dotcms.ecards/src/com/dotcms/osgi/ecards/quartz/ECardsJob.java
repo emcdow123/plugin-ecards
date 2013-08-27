@@ -71,8 +71,6 @@ public class ECardsJob implements Job{
 				messageString = messageString.replaceAll("\\$\\{esc.hash}", "#");
 
 				Field status = form.getFieldVar(ECards.FORM_STATUS_FIELD_VAR_NAME);
-				Field error = form.getFieldVar(ECards.FORM_ERROR_FIELD_VAR_NAME);
-				String errorString = (String)conAPI.getFieldValue(cont, error);
 
 				Field imageType = form.getFieldVar(ECards.FORM_IMAGE_TYPE_FIELD_VAR_NAME);
 				String imageTypeString = (String)conAPI.getFieldValue(cont, imageType);
@@ -103,7 +101,6 @@ public class ECardsJob implements Job{
 							ECards.sendEmail(eCardAdmin.getEmailAddress(), subject, body.toString());
 						}
 					}catch(Exception ex){
-						conAPI.setContentletProperty(cont, error, errorString+"\r\n"+ex.getMessage());
 						conAPI.setContentletProperty(cont, status, "error");
 						cont.setInode("");
 						conAPI.checkin(cont, systemUser, false);
@@ -155,7 +152,6 @@ public class ECardsJob implements Job{
 						ECards.sendEmail(senderEmailString, subject, body.toString());						
 					}catch(Exception ex){
 						Logger.info(ECardsJob.class, "eCards plugin: Sending email fails."+ex.getMessage());
-						conAPI.setContentletProperty(cont, error, errorString+"\r\n"+ex.getMessage());
 						conAPI.setContentletProperty(cont, status, "error");
 						cont.setInode("");
 						conAPI.checkin(cont, systemUser, false);
