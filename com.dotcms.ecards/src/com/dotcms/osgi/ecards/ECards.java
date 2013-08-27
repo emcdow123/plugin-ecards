@@ -115,6 +115,10 @@ public class ECards {
 	public static final String FORM_JAVASCRIPTS_FIELD = "Options";
 	public static final String FORM_JAVASCRIPTS_FIELD_HINT = "";
 	public static final String FORM_JAVASCRIPTS_FIELD_VALUES = "";
+    
+    public static final String FORM_SUBMITTED_DATE_FIELD_VAR_NAME = "submittedDate";
+    public static final String FORM_SUBMITTED_DATE_FIELD = "";
+    public static final String FORM_SUBMITTED_DATE_FIELD_HINT = "";
 
 	public static final String FORM_HOST_FIELD_NAME = "Form Host";
 	public static final String FORM_HOST_FIELD_VAR_NAME = "formHost";
@@ -249,7 +253,7 @@ public class ECards {
 
         Field entity = form.getFieldVar(FORM_ENTITY_FIELD_VAR_NAME);
         if(!UtilMethods.isSet(entity) || !UtilMethods.isSet(entity.getInode())) {
-            entity = new Field(FORM_ENTITY_FIELD,Field.FieldType.HIDDEN,Field.DataType.TEXT,form,false,false,false,5,"", "", "", true, true, true);
+            entity = new Field(FORM_ENTITY_FIELD,Field.FieldType.HIDDEN,Field.DataType.TEXT,form,true,false,true,5,"", "", "", true, true, true);
             entity.setVelocityVarName(FORM_ENTITY_FIELD_VAR_NAME);
             FieldFactory.saveField(entity);
         }
@@ -374,6 +378,18 @@ public class ECards {
 			FieldFactory.saveField(scripts);
 			FieldsCache.addField(scripts);
 		}
+        
+        Field submittedDate = form.getFieldVar(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
+        if(!UtilMethods.isSet(currentDate) || !UtilMethods.isSet(currentDate.getInode())) {
+            submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD,Field.FieldType.CUSTOM_FIELD,Field,DataType.LONG_TEXT,form,false,false, true, 17, false, false, false);
+            submittedDate.setVelocityVarName(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
+            submittedDate.setHint(FORM_SUBMITTED_DATE_FIELD_HINT);
+            String filePath = "#dotParse('//" + host.getHostName() + "/ecards/velocity/ecards-created-date.vtl')";
+            submittedDate.setValues(filePath);
+            submittedDate.setFieldRelationType("");
+            FieldFactory.saveField(submittedDate);
+            FieldsCache.addField(submittedDate);
+        }
 
 		FieldsCache.removeFields(form);
 		StructureCache.removeStructure(form);
