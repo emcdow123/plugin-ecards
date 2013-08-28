@@ -117,7 +117,7 @@ public class ECards {
 	public static final String FORM_JAVASCRIPTS_FIELD_VALUES = "";
     
     public static final String FORM_SUBMITTED_DATE_FIELD_VAR_NAME = "submittedDate";
-    public static final String FORM_SUBMITTED_DATE_FIELD = "";
+    public static final String FORM_SUBMITTED_DATE_FIELD = "Submitted Date";
     public static final String FORM_SUBMITTED_DATE_FIELD_HINT = "";
 
 	public static final String FORM_HOST_FIELD_NAME = "Form Host";
@@ -251,16 +251,10 @@ public class ECards {
 			FieldFactory.saveField(hostField);
 		}
 
-        Field entity = form.getFieldVar(FORM_ENTITY_FIELD_VAR_NAME);
-        if(!UtilMethods.isSet(entity) || !UtilMethods.isSet(entity.getInode())) {
-            entity = new Field(FORM_ENTITY_FIELD,Field.FieldType.HIDDEN,Field.DataType.TEXT,form,true,false,true,5,"", "", "", true, true, true);
-            entity.setVelocityVarName(FORM_ENTITY_FIELD_VAR_NAME);
-            FieldFactory.saveField(entity);
-        }
         
 		Field status = form.getFieldVar(FORM_STATUS_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(status) || !UtilMethods.isSet(status.getInode())) {
-			status = new Field(FORM_STATUS_FIELD,Field.FieldType.SELECT,Field.DataType.TEXT,form,true,true,true,6,"", "", "", false, false, false);
+			status = new Field(FORM_STATUS_FIELD,Field.FieldType.SELECT,Field.DataType.TEXT,form,true,true,true,5,"", "", "", false, false, false);
 			status.setVelocityVarName(FORM_STATUS_FIELD_VAR_NAME);
 			status.setHint(FORM_STATUS_FIELD_HINT);
 			status.setValues(FORM_STATUS_FIELD_VALUES);
@@ -272,7 +266,7 @@ public class ECards {
 
 		Field name = form.getFieldVar(FORM_NAME_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(name) || !UtilMethods.isSet(name.getInode())) {
-			name = new Field(FORM_NAME_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,7,"", "", "", false, false, true);
+			name = new Field(FORM_NAME_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,6,"", "", "", false, false, true);
 			name.setVelocityVarName(FORM_NAME_FIELD_VAR_NAME);
 			name.setHint(FORM_NAME_FIELD_HINT);
 			name.setFieldRelationType("");
@@ -282,7 +276,7 @@ public class ECards {
 
 		Field email = form.getFieldVar(FORM_EMAIL_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(email) || !UtilMethods.isSet(email.getInode())) {
-			email = new Field(FORM_EMAIL_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,8,"", "", "", false, false, true);
+			email = new Field(FORM_EMAIL_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,7,"", "", "", false, false, true);
 			email.setVelocityVarName(FORM_EMAIL_FIELD_VAR_NAME);
 			email.setHint(FORM_EMAIL_FIELD_HINT);
 			email.setFieldRelationType("");
@@ -292,7 +286,7 @@ public class ECards {
 
 		Field destinatary = form.getFieldVar(FORM_RECIPIENT_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(destinatary) || !UtilMethods.isSet(destinatary.getInode())) {
-			destinatary = new Field(FORM_RECIPIENT_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,9,"", "", "", false, false, true);
+			destinatary = new Field(FORM_RECIPIENT_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,8,"", "", "", false, false, true);
 			destinatary.setVelocityVarName(FORM_RECIPIENT_FIELD_VAR_NAME);
 			destinatary.setHint(FORM_RECIPIENT_FIELD_HINT);
 			destinatary.setFieldRelationType("");
@@ -302,7 +296,7 @@ public class ECards {
 
 		Field deliveryMethod = form.getFieldVar(FORM_DELIVERY_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(deliveryMethod) || !UtilMethods.isSet(deliveryMethod.getInode())) {
-			deliveryMethod = new Field(FORM_DELIVERY_FIELD,Field.FieldType.CHECKBOX,Field.DataType.TEXT,form,true,true,true,10,"", "", "", false, false, true);
+			deliveryMethod = new Field(FORM_DELIVERY_FIELD,Field.FieldType.CHECKBOX,Field.DataType.TEXT,form,true,true,true,9,"", "", "", false, false, true);
 			deliveryMethod.setVelocityVarName(FORM_DELIVERY_FIELD_VAR_NAME);
 			deliveryMethod.setHint(FORM_DELIVERY_FIELD_HINT);
 			deliveryMethod.setValues(FORM_DELIVERY_FIELD_VALUES);
@@ -313,7 +307,7 @@ public class ECards {
 
 		Field deliveryLocation = form.getFieldVar(FORM_DELIVERY_ROOM_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(deliveryLocation) || !UtilMethods.isSet(deliveryLocation.getInode())) {
-			deliveryLocation = new Field(FORM_DELIVERY_ROOM_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,11,"", "", "", false, false, true);
+			deliveryLocation = new Field(FORM_DELIVERY_ROOM_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,10,"", "", "", false, false, true);
 			deliveryLocation.setVelocityVarName(FORM_DELIVERY_ROOM_FIELD_VAR_NAME);
 			deliveryLocation.setHint(FORM_DELIVERY_ROOM_FIELD_HINT);
 			deliveryLocation.setDefaultValue(FORM_DELIVERY_ROOM_FIELD_DEFAULT_VALUE);
@@ -324,7 +318,7 @@ public class ECards {
 
 		Field deliveryEmail = form.getFieldVar(FORM_DELIVERY_EMAIL_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(deliveryEmail) || !UtilMethods.isSet(deliveryEmail.getInode())) {
-			deliveryEmail = new Field(FORM_DELIVERY_EMAIL_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,12,"", "", "", false, false, true);
+			deliveryEmail = new Field(FORM_DELIVERY_EMAIL_FIELD,Field.FieldType.TEXT,Field.DataType.TEXT,form,true,true,true,11,"", "", "", false, false, true);
 			deliveryEmail.setVelocityVarName(FORM_DELIVERY_EMAIL_FIELD_VAR_NAME);
 			deliveryEmail.setHint(FORM_DELIVERY_EMAIL_FIELD_HINT);
 			deliveryEmail.setDefaultValue(FORM_DELIVERY_EMAIL_FIELD_DEFAULT_VALUE);
@@ -335,7 +329,7 @@ public class ECards {
 
 		Field imageType = form.getFieldVar(FORM_IMAGE_TYPE_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(imageType) || !UtilMethods.isSet(imageType.getInode())) {
-			imageType = new Field(FORM_IMAGE_TYPE_FIELD,Field.FieldType.SELECT,Field.DataType.TEXT,form,true,false,false,13,"", "", "", false, false, false);
+			imageType = new Field(FORM_IMAGE_TYPE_FIELD,Field.FieldType.SELECT,Field.DataType.TEXT,form,true,false,false,12,"", "", "", false, false, false);
 			imageType.setVelocityVarName(FORM_IMAGE_TYPE_FIELD_VAR_NAME);
 			imageType.setHint(FORM_IMAGE_TYPE_FIELD_HINT);
 			imageType.setValues(FORM_IMAGE_TYPE_FIELD_VALUES);
@@ -347,11 +341,11 @@ public class ECards {
 
 		Field image = form.getFieldVar(FORM_BACKGROUND_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(image) || !UtilMethods.isSet(image.getInode())) {
-			image = new Field(FORM_BACKGROUND_FIELD,Field.FieldType.CUSTOM_FIELD,Field.DataType.LONG_TEXT,form,true,false,false,14,"", "", "", false, false, false);
+			image = new Field(FORM_BACKGROUND_FIELD,Field.FieldType.CUSTOM_FIELD,Field.DataType.LONG_TEXT,form,true,false,false,13,"", "", "", false, false, false);
 			image.setVelocityVarName(FORM_BACKGROUND_FIELD_VAR_NAME);
 			image.setHint(FORM_BACKGROUND_FIELD_HINT);
-			String filePath="#dotParse('//"+host.getHostname()+"/ecards/velocity/ecards-backgrounds.vtl')";
-			image.setValues(filePath);
+			String imageFilePath="#dotParse('//"+host.getHostname()+"/ecards/velocity/ecards-backgrounds.vtl')";
+			image.setValues(imageFilePath);
 			image.setFieldRelationType("");
 			FieldFactory.saveField(image);
 			FieldsCache.addField(image);
@@ -359,7 +353,7 @@ public class ECards {
 
 		Field message = form.getFieldVar(FORM_MESSAGE_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(message) || !UtilMethods.isSet(message.getInode())) {
-			message = new Field(FORM_MESSAGE_FIELD,Field.FieldType.WYSIWYG,Field.DataType.LONG_TEXT,form,true,false,false,15,"", "", "", false, false, false);
+			message = new Field(FORM_MESSAGE_FIELD,Field.FieldType.WYSIWYG,Field.DataType.LONG_TEXT,form,true,false,false,14,"", "", "", false, false, false);
 			message.setVelocityVarName(FORM_MESSAGE_FIELD_VAR_NAME);
 			message.setHint(FORM_MESSAGE_FIELD_HINT);
 			message.setFieldRelationType("");
@@ -369,11 +363,11 @@ public class ECards {
         
         Field scripts = form.getFieldVar(FORM_JAVASCRIPTS_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(scripts) || !UtilMethods.isSet(scripts.getInode())) {
-			scripts = new Field(FORM_JAVASCRIPTS_FIELD,Field.FieldType.CUSTOM_FIELD,Field.DataType.LONG_TEXT,form,false,false,false,16,"", "", "", false, false, false);
+			scripts = new Field(FORM_JAVASCRIPTS_FIELD,Field.FieldType.CUSTOM_FIELD,Field.DataType.LONG_TEXT,form,false,false,false,15,"", "", "", false, false, false);
 			scripts.setVelocityVarName(FORM_JAVASCRIPTS_FIELD_VAR_NAME);
 			scripts.setHint(FORM_JAVASCRIPTS_FIELD_HINT);
-			String filePath="#dotParse('//"+host.getHostname()+"/ecards/velocity/ecards-scripts-and-buttons.vtl')";
-			scripts.setValues(filePath);
+			String scriptsFilePath="#dotParse('//"+host.getHostname()+"/ecards/velocity/ecards-scripts-and-buttons.vtl')";
+			scripts.setValues(scriptsFilePath);
 			scripts.setFieldRelationType("");
 			FieldFactory.saveField(scripts);
 			FieldsCache.addField(scripts);
@@ -381,14 +375,26 @@ public class ECards {
         
         Field submittedDate = form.getFieldVar(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
         if(!UtilMethods.isSet(submittedDate) || !UtilMethods.isSet(submittedDate.getInode())) {
-            submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD,Field.FieldType.CUSTOM_FIELD,Field.DataType.TEXT,form,false,false, true, 17, "", "", "", false, false, false);
+            submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD, Field.FieldType.CUSTOM_FIELD, Field.DataType.TEXT, form, false, true, true, 16, "", "", "", true, true, true);
             submittedDate.setVelocityVarName(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
             submittedDate.setHint(FORM_SUBMITTED_DATE_FIELD_HINT);
-            String filePath = "#dotParse('//" + host.getHostname() + "/ecards/velocity/ecards-created-date.vtl')";
-            submittedDate.setValues(filePath);
+            String submittedDateFilePath = "#dotParse('//" + host.getHostname() + "/ecards/velocity/ecards-created-date.vtl')";
+            submittedDate.setValues(submittedDateFilePath);
             submittedDate.setFieldRelationType("");
             FieldFactory.saveField(submittedDate);
             FieldsCache.addField(submittedDate);
+        }
+
+        Field entity = form.getFieldVar(FORM_ENTITY_FIELD_VAR_NAME);
+        if(!UtilMethods.isSet(entity) || !UtilMethods.isSet(entity.getInode())) {
+            entity = new Field(FORM_ENTITY_FIELD, Field.FieldType.CUSTOM_FIELD, Field.DataType.TEXT, form, false, true, true, 17, "", "", "", true, true, true);
+            entity.setVelocityVarName(FORM_ENTITY_FIELD_VAR_NAME);
+            entity.setHint(FORM_ENTITY_FIELD_HINT);
+            String entityFilePath = "#dotParse('//" + host.getHostname() + "/ecards/velocity/ecards-entity.vtl')";
+            entity.setValues(entityFilePath);
+            entity.setFieldRelationType("");
+            FieldFactory.saveField(entity);
+            FieldFactory.addField(entity);
         }
 
 		FieldsCache.removeFields(form);
