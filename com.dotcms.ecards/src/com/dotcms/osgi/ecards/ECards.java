@@ -394,7 +394,7 @@ public class ECards {
             entity.setValues(entityFilePath);
             entity.setFieldRelationType("");
             FieldFactory.saveField(entity);
-            FieldFactory.addField(entity);
+            FieldsCache.addField(entity);
         }
 
 		FieldsCache.removeFields(form);
