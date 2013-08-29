@@ -254,7 +254,7 @@ public class ECards {
         
 		Field status = form.getFieldVar(FORM_STATUS_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(status) || !UtilMethods.isSet(status.getInode())) {
-			status = new Field(FORM_STATUS_FIELD,Field.FieldType.SELECT,Field.DataType.TEXT,form,true,true,true,5,"", "", "", false, false, false);
+			status = new Field(FORM_STATUS_FIELD,Field.FieldType.SELECT,Field.DataType.TEXT,form,false,true,true,5,"", "", "", false, false, false);
 			status.setVelocityVarName(FORM_STATUS_FIELD_VAR_NAME);
 			status.setHint(FORM_STATUS_FIELD_HINT);
 			status.setValues(FORM_STATUS_FIELD_VALUES);

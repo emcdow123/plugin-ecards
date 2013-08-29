@@ -112,6 +112,7 @@
                         for(var i=0, l=feed.contentlets.length; i < l && i < 16; ++i){
                             ${esc.d}('#eCardsTable tbody').append(
                                 "<tr>" +
+                                "<td>" + feed.contentlets[i].submittedDate + "</td>" +
                                 "<td>" + feed.contentlets[i].senderEmail + "</td>" +
                                 "<td>" + feed.contentlets[i].recipient + "</td>" +
                                 "<td>" + feed.contentlets[i].deliveryLocation + "</td>" +
