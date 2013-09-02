@@ -373,21 +373,34 @@ public class ECards {
 			FieldsCache.addField(scripts);
 		}
         
-        Field submittedDate = form.getFieldVar(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
+		/*Field submittedDate = form.getFieldVar(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
+		if(!UtilMethods.isSet(submittedDate) || !UtilMethods.isSet(submittedDate.getInode())) {
+			scripts = new Field(FORM_SUBMITTED_DATE_FIELD,Field.FieldType.CUSTOM_FIELD,Field.DataType.LONG_TEXT,form,false,false,false,16,"", "", "", false, false, false);
+			scripts.setVelocityVarName(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
+			scripts.setHint(FORM_SUBMITTED_DATE_FIELD_HINT);
+			String submittedDateFilePath="#dotParse('//"+host.getHostname()+"/ecards/velocity/ecards-created-date.vtl')";
+			scripts.setValues(submittedDateFilePath);
+			scripts.setFieldRelationType("");
+			FieldFactory.saveField(submittedDate);
+			FieldsCache.addField(submittedDate);
+		}*/
+
+        /*Field submittedDate = form.getFieldVar(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
         if(!UtilMethods.isSet(submittedDate) || !UtilMethods.isSet(submittedDate.getInode())) {
-            submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD, Field.FieldType.CUSTOM_FIELD, Field.DataType.TEXT, form, false, true, true, 16, "", "", "", true, true, true);
+            submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD, Field.FieldType.CUSTOM_FIELD, Field.DataType.LONG_TEXT, form, false, true, true, 16, "", "", "", true, true, true);
             submittedDate.setVelocityVarName(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
             submittedDate.setHint(FORM_SUBMITTED_DATE_FIELD_HINT);
-            String submittedDateFilePath = "#dotParse('//" + host.getHostname() + "/ecards/velocity/ecards-created-date.vtl')";
+            String submittedDateFilePath = "<script>${esc.d}('#submittedDate').val('$date.get('yyyy-M-d')');</script>";
+            out.println("This worked!" + submittedDateFilePath);
             submittedDate.setValues(submittedDateFilePath);
             submittedDate.setFieldRelationType("");
             FieldFactory.saveField(submittedDate);
             FieldsCache.addField(submittedDate);
-        }
+        }*/
 
         Field entity = form.getFieldVar(FORM_ENTITY_FIELD_VAR_NAME);
         if(!UtilMethods.isSet(entity) || !UtilMethods.isSet(entity.getInode())) {
-            entity = new Field(FORM_ENTITY_FIELD, Field.FieldType.CUSTOM_FIELD, Field.DataType.TEXT, form, false, true, true, 17, "", "", "", true, true, true);
+            entity = new Field(FORM_ENTITY_FIELD, Field.FieldType.CUSTOM_FIELD, Field.DataType.LONG_TEXT, form, false, true, true, 16, "", "", "", true, true, true);
             entity.setVelocityVarName(FORM_ENTITY_FIELD_VAR_NAME);
             entity.setHint(FORM_ENTITY_FIELD_HINT);
             String entityFilePath = "#dotParse('//" + host.getHostname() + "/ecards/velocity/ecards-entity.vtl')";
