@@ -98,7 +98,7 @@ public class ECards {
 	public static final String FORM_STATUS_FIELD_DEFAULT_VALUE ="pending";
 
 	public static final String FORM_IMAGE_TYPE_FIELD_VAR_NAME = "imageType";
-	public static final String FORM_IMAGE_TYPE_FIELD = "Select type";
+	public static final String FORM_IMAGE_TYPE_FIELD = "Select Image type";
 	public static final String FORM_IMAGE_TYPE_FIELD_HINT = "";
 	public static final String FORM_IMAGE_TYPE_FIELD_VALUES = "Birthday|birthday\r\nGet Well|get_well\r\nCongratulations|congratulations\r\nLove - Valentine day|valentine\r\nHoliday|holiday\r\nNew Baby|new_baby";
 	public static final String FORM_IMAGE_TYPE_FIELD_DEFAULT_VALUE ="birthday";

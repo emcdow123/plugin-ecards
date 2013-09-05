@@ -1,17 +1,5 @@
-<div id="ecard-message-counter-area">
-Max. amount of characters allowed 250.
-</div>
 <div id="ecard-buttons-area">
   <button dojoType="dijit.form.Button" type="button" id="previewBUtton" onclick="ecardPreview();" >Preview</button>
-</div>
-<div id="ecard-preview" style="display:none;">
-   <div id="ecard-info">
-   		<div id="ecard-from"></div>
-     	<div id="ecard-to"></div>
-   </div>
-   <div id="ecard-background">     
-     <div id="ecard-body"></div>
-   </div>
 </div>
 #if(!$UtilMethods.isSet($imageHost))
   #set($hostStructure = $structures.findStructureByVelocityVarName("Host"))
@@ -21,32 +9,30 @@ Max. amount of characters allowed 250.
   #end
 #end
 
-<script type="text"javascript">
+<script type="text/javascript">
+
 //Show the ecard preview
 function ecardPreview(){
-    var image = document.getElementById('imageInode').value;
-    var toUser = document.getElementById('recipient').value;
-    var fromUser = document.getElementById('name').value;
-    var message = tinyMCE.getInstanceById('message').getContent();
-	var imageHeight = document.getElementById('imageHeight').value;
-	var imageWidth  = document.getElementById('imageWidth').value;
-    
-    if(image.length == 0 || toUser.length == 0 || fromUser.length ==0 || message.lenght == 0){
-        alert('Please, fill all the required fields first');
-      document.getElementById('ecard-preview').style.display="none";
-    }else{
-    
-	var tempWidth = 720;
-	var tempHeight = Math.ceil((imageHeight * tempWidth) / imageWidth);
-	
-    document.getElementById('ecard-background').style.background= "url(/contentAsset/image/"+image+"/fileAsset/byInode/1/filter/Resize/resize_w/"+ tempWidth + "/resize_h/"+ tempHeight +"/)";
-	document.getElementById('ecard-background').style.width = tempWidth + "px";
-	document.getElementById('ecard-background').style.height = tempHeight + "px";
-	document.getElementById('ecard-from').innerHTML='<h3>From: '+fromUser+'</h3>';
-    document.getElementById('ecard-to').innerHTML='<h3>To: '+toUser+'</h3>';    
-    document.getElementById('ecard-body').innerHTML=message;  
-    document.getElementById('ecard-preview').style.display="";
-  }
+  var eCardPrint = window();
+
+    eCardPrint.document.write("<link rel='stylesheet' type='text/css' href='/ecards/css/ecards-print-style.css'>" +
+      "<div>" +
+        "<img src='/ecards/gallery/baptist.png'></img>" +
+        "<div class='non-semantic-protector'>" +
+          "<h1 class='ribbon'>" + 
+            "<strong class='ribbon-content'>From: " + $("#name").val() + "</strong>" +
+          "</h1>" +
+          "<h1 class='ribbon'>" +
+            "<strong class='ribbon-content'>To: " + $("#recipient").val() + "</strong>" +
+          "</h1>" +
+        "</div>" +
+        "<p>Message: </p>" + tinyMCE.getInstanceById('message').getContent(); +
+        "<img class='eCardImage' src='/contentAsset/raw-data/" + $("#image").val() + "/fileAsset'></img>" +
+      "</div>");
+                     
+    eCardPrint.document.close();
+    eCardPrint.open();
+    eCardPrint.focus();
 }
 
 //Show and Hide the recipient Email subfield

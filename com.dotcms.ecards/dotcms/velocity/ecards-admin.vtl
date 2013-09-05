@@ -75,17 +75,17 @@
                         
                         eCardPrint.document.write("<link rel='stylesheet' type='text/css' href='/ecards/css/ecards-print-style.css'>" +
                             "<div>" +
-                            "<img src='/ecards/gallery/baptist.png'></img>" +
-                            "<div class='non-semantic-protector'>" +
-                            "<h1 class='ribbon'>" + 
-                            "<strong class='ribbon-content'>From: " + feed.contentlets[0].name + "</strong>" +
-                            "</h1>" +
-                            "<h1 class='ribbon'>" +
-                            "<strong class='ribbon-content'>To: " + feed.contentlets[0].recipient + "</strong>" +
-                            "</h1>" +
-                            "</div>" +
-                            "<p>Message: " + feed.contentlets[0].message + "</p>" +
-                            "<img class='eCardImage' src='/contentAsset/raw-data/" + feed.contentlets[0].image + "/fileAsset'></img>" +
+                                "<img src='/ecards/gallery/baptist.png'></img>" +
+                                "<div class='non-semantic-protector'>" +
+                                    "<h1 class='ribbon'>" + 
+                                        "<strong class='ribbon-content'>From: " + feed.contentlets[0].name + "</strong>" +
+                                    "</h1>" +
+                                    "<h1 class='ribbon'>" +
+                                        "<strong class='ribbon-content'>To: " + feed.contentlets[0].recipient + "</strong>" +
+                                    "</h1>" +
+                                "</div>" +
+                                "<p>Message: " + feed.contentlets[0].message + "</p>" +
+                                "<img class='eCardImage' src='/contentAsset/raw-data/" + feed.contentlets[0].image + "/fileAsset'></img>" +
                             "</div>");
                         
                         eCardPrint.document.close();
