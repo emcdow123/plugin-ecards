@@ -13,7 +13,7 @@
 
 //Show the ecard preview
 function ecardPreview(){
-  var eCardPrint = window();
+  var eCardPrint = window.open();
 
     eCardPrint.document.write("<link rel='stylesheet' type='text/css' href='/ecards/css/ecards-print-style.css'>" +
       "<div>" +
@@ -26,12 +26,11 @@ function ecardPreview(){
             "<strong class='ribbon-content'>To: " + $("#recipient").val() + "</strong>" +
           "</h1>" +
         "</div>" +
-        "<p>Message: </p>" + tinyMCE.getInstanceById('message').getContent(); +
+        "<p>Message: </p>" + tinyMCE.getInstanceById('message').getContent() +
         "<img class='eCardImage' src='/contentAsset/raw-data/" + $("#image").val() + "/fileAsset'></img>" +
       "</div>");
                      
     eCardPrint.document.close();
-    eCardPrint.open();
     eCardPrint.focus();
 }
 
@@ -39,13 +38,11 @@ function ecardPreview(){
 function showHideDeliveryEmail(){
   var selected=document.getElementById('deliveryMethodSendtoEmail');
   if(selected.checked){
-    document.getElementById('deliveryEmailFieldLabel').style.display="";
-    document.getElementById('deliveryEmailFieldInput').style.display="";
-    document.getElementById('deliveryEmail').value="";
+    $('#deliveryEmailFieldLabel').parent().show();
+    $('#deliveryEmail').val("");
   }else{
-    document.getElementById('deliveryEmailFieldLabel').style.display="none";
-    document.getElementById('deliveryEmailFieldInput').style.display="none";
-    document.getElementById('deliveryEmail').value="NOTAVAILABLE";
+    $('#deliveryEmailFieldLabel').parent().hide();
+    $('#deliveryEmail').val("NOTAVAILABLE");
   }
 }
 
@@ -53,13 +50,11 @@ function showHideDeliveryEmail(){
 function showHideDeliveryRoom(){
   var selected=document.getElementById('deliveryMethodSendtoRoom');
   if(selected.checked){
-    document.getElementById('deliveryLocationFieldLabel').style.display="";
-    document.getElementById('deliveryLocationFieldInput').style.display="";
-    document.getElementById('deliveryLocation').value="";
+    $('#deliveryLocationFieldLabel').parent().show();
+    $('#deliveryLocation').val("");
   }else{
-    document.getElementById('deliveryLocationFieldLabel').style.display="none";
-    document.getElementById('deliveryLocationFieldInput').style.display="none";
-    document.getElementById('deliveryLocation').value="NOTAVAILABLE";
+    $('#deliveryLocationFieldLabel').parent().hide();
+    $('#deliveryLocation').val("NOTAVAILABLE");
   }
 }
 
@@ -82,15 +77,12 @@ dojo.addOnLoad(function () {
   showHideDeliveryEmail();
   showHideDeliveryRoom();
   
-  document.getElementById('scriptsFieldLabel').style.display="none";
+  $('#scriptsFieldLabel').hide();
   
   
   #if(!$EDIT_MODE && !$ADMIN_MODE)
-    document.getElementById('statusFieldLabel').style.display="none";
-    document.getElementById('statusFieldInput').style.display="none";
-    document.getElementById('errorFieldLabel').style.display="none";
-    document.getElementById('errorFieldInput').style.display="none";
-    document.getElementById('printButton').style.display="none";
+    $('#entityFieldLabel').parent().hide();
+    $('#submittedDateFieldLabel').parent().hide();
   #end
   
   //disableWYSIWYG('message');
