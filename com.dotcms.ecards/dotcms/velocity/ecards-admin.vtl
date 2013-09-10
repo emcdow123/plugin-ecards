@@ -102,22 +102,24 @@
             var showeCards = function(stat) {
                 var e = document.getElementById("eCardStatus");
                 var status = e.options[e.selectedIndex].value;
+                var start = $('#startDate').val();
+                var end = $('#endDate').val();
                 
                 ${esc.d}.ajax({
                     type: 'GET',
-                    url: '/api/content/render/false/query/+structureName:eCards%20+(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797%20conhost:SYSTEM_HOST)%20+eCards.status:*' + status + '*%20+languageId:1%20%20+deleted:false%20%20+working:true/orderby/undefined%20desc',
+                    url: '/api/content/render/false/query/+structureName:eCards%20+(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797%20conhost:SYSTEM_HOST)%20+eCards.status:*' + status + '*%20+eCards.submittedDate:%5B' + start + '%20TO%20' + end + '%5D%20+languageId:1*%20+deleted:false',
                     dataType: 'json',
                     success: function(feed) {
                         ${esc.d}('#eCardsTable tbody').empty();
                         for(var i=0, l=feed.contentlets.length; i < l && i < 16; ++i){
                             ${esc.d}('#eCardsTable tbody').append(
                                 "<tr>" +
-                                "<td>" + feed.contentlets[i].submittedDate + "</td>" +
-                                "<td>" + feed.contentlets[i].senderEmail + "</td>" +
-                                "<td>" + feed.contentlets[i].recipient + "</td>" +
-                                "<td>" + feed.contentlets[i].deliveryLocation + "</td>" +
-                                "<td>" + feed.contentlets[i].deliveryEmail + "</td>" +
-                                "<td>" + feed.contentlets[i].status + "   <button value='" + feed.contentlets[i].inode + "' name='print' id='print' class='print'>Print</button></td>" +
+                                    "<td>" + feed.contentlets[i].submittedDate + "</td>" +
+                                    "<td>" + feed.contentlets[i].senderEmail + "</td>" +
+                                    "<td>" + feed.contentlets[i].recipient + "</td>" +
+                                    "<td>" + feed.contentlets[i].deliveryLocation + "</td>" +
+                                    "<td>" + feed.contentlets[i].deliveryEmail + "</td>" +
+                                    "<td>" + feed.contentlets[i].status + "   <button value='" + feed.contentlets[i].inode + "' name='print' id='print' class='print'>Print</button></td>" +
                                 "</tr>"
                             );
                         }
