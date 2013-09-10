@@ -375,10 +375,10 @@ public class ECards {
         
 		Field submittedDate = form.getFieldVar(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
 		if(!UtilMethods.isSet(submittedDate) || !UtilMethods.isSet(submittedDate.getInode())) {
-			submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD,Field.FieldType.CUSTOM_FIELD,Field.DataType.LONG_TEXT,form,false,false,false,16,"", "", "", false, false, false);
+			submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD,Field.FieldType.DATE,Field.DataType.DATE,form,false,true,true,16,"", "", "", true, true, true);
 			submittedDate.setVelocityVarName(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
 			submittedDate.setHint(FORM_SUBMITTED_DATE_FIELD_HINT);
-			String submittedDateFilePath="#dotParse('//"+host.getHostname()+"/ecards/velocity/ecards-created-date.vtl')";
+			String submittedDateFilePath="$date.get('yyyy-M-d')";
 			submittedDate.setValues(submittedDateFilePath);
 			submittedDate.setFieldRelationType("");
 			FieldFactory.saveField(submittedDate);
