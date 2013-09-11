@@ -93,21 +93,28 @@
                         }
                     });
                 };
+
+            function formatDateString(date){
+                year = date.slice(6);
+                month = date.slice(0,2);
+                day = date.slice(3,5);
+                return year + month + day;
+            }
                 
           ${esc.d}(document).ready(function() {
             
-            $("${esc.h}startDate").datepicker();
-            $("${esc.h}endDate").datepicker();
+            ${esc.d}("${esc.h}startDate").datepicker();
+            ${esc.d}("${esc.h}endDate").datepicker();
             
             var showeCards = function(stat) {
                 var e = document.getElementById("eCardStatus");
                 var status = e.options[e.selectedIndex].value;
-                var start = $('#startDate').val();
-                var end = $('#endDate').val();
+                var start = formatDateString(${esc.d}('${esc.h}startDate').val());
+                var end = formatDateString(${esc.d}('${esc.h}endDate').val());
                 
                 ${esc.d}.ajax({
                     type: 'GET',
-                    url: '/api/content/render/false/query/+structureName:eCards%20+(conhost:48190c8c-42c4-46af-8d1a-0cd5db894797%20conhost:SYSTEM_HOST)%20+eCards.status:*' + status + '*%20+eCards.submittedDate:%5B' + start + '%20TO%20' + end + '%5D%20+languageId:1*%20+deleted:false',
+                    url: '/api/content/render/false/query/+structureName:eCards%20+eCards.status:*' + status + '*%20+eCards.submittedDate:%5B' + start + '%20TO%20' + end + '%5D',
                     dataType: 'json',
                     success: function(feed) {
                         ${esc.d}('#eCardsTable tbody').empty();
@@ -144,11 +151,12 @@
 	<div id="eCardsAdminTable">
             <table id="eCardsTable" name="eCardsTable">
                 <thead>
-	            <th>From</th>
-	            <th>Deliver To</th>
-	            <th>Room</th>
-	            <th>To Email</th>
-	            <th>Current Action</th>
+                    <th>Submitted</th>
+	               <th>From</th>
+	               <th>Deliver To</th>
+	               <th>Room</th>
+	               <th>To Email</th>
+	               <th>Current Action</th>
                 </thead>
                 <tbody>
                 </tbody>
