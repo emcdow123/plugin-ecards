@@ -378,7 +378,7 @@ public class ECards {
 			submittedDate = new Field(FORM_SUBMITTED_DATE_FIELD,Field.FieldType.DATE,Field.DataType.DATE,form,false,true,true,16,"", "", "", true, true, true);
 			submittedDate.setVelocityVarName(FORM_SUBMITTED_DATE_FIELD_VAR_NAME);
 			submittedDate.setHint(FORM_SUBMITTED_DATE_FIELD_HINT);
-			String submittedDateFilePath="$date.get('yyyy-M-d')";
+			String submittedDateFilePath="$date.format('mm/dd/yyyy', $date.get('yyyy-M-d'))";
 			submittedDate.setValues(submittedDateFilePath);
 			submittedDate.setFieldRelationType("");
 			FieldFactory.saveField(submittedDate);

@@ -11,12 +11,8 @@
 		width: 100%;
 		}
         
-	#printerImage{
-		height: 28px;
-		}
-        
     .print{
-        float: right;
+        display: inline;
      }
      
      label {
@@ -57,9 +53,13 @@
                         
                         <label for="startDate">Select a Start Date</label>
                         <input type="text" name="startDate" id="startDate" />
+                        <input type="hidden" name="altStartDate" id="altStartDate" />
                         
                         <label for="endDate">Select an End Date</label>
                         <input type="text" name="endDate" id="endDate" />
+                        <input type="hidden" name="altEndDate" id="altEndDate" />
+
+                        <button type="button" id="submitSearch" name="submitSearch">Search</button>
                 </form>
 	</div>
 	
@@ -94,23 +94,34 @@
                     });
                 };
 
-            function formatDateString(date){
+            /*function formatDateString(date){
                 year = date.slice(6);
                 month = date.slice(0,2);
                 day = date.slice(3,5);
                 return year + month + day;
-            }
+            }*/
                 
           ${esc.d}(document).ready(function() {
             
-            ${esc.d}("${esc.h}startDate").datepicker();
-            ${esc.d}("${esc.h}endDate").datepicker();
+            ${esc.d}("${esc.h}startDate").datepicker({
+                altField: "#altStartDate",
+                altFormat: "yymmdd",
+                maxDate: new Date()
+            });
+            ${esc.d}("${esc.h}endDate").datepicker({
+                altField: "#altEndDate",
+                altFormat: "yymmdd",
+                minDate: new Date()
+            });
             
+            ${esc.d}("${esc.h}startDate").datepicker("setDate", -3);
+            ${esc.d}("${esc.h}endDate").datepicker("setDate", +3);
+
             var showeCards = function(stat) {
                 var e = document.getElementById("eCardStatus");
                 var status = e.options[e.selectedIndex].value;
-                var start = formatDateString(${esc.d}('${esc.h}startDate').val());
-                var end = formatDateString(${esc.d}('${esc.h}endDate').val());
+                var start = ${esc.d}('${esc.h}altStartDate').val();
+                var end = ${esc.d}('${esc.h}altEndDate').val();
                 
                 ${esc.d}.ajax({
                     type: 'GET',
@@ -119,14 +130,17 @@
                     success: function(feed) {
                         ${esc.d}('#eCardsTable tbody').empty();
                         for(var i=0, l=feed.contentlets.length; i < l && i < 16; ++i){
+                            itemStatus = feed.contentlets[i].status;
+                            itemStatus = itemStatus.charAt(0).toUpperCase() + itemStatus.slice(1);
+
                             ${esc.d}('#eCardsTable tbody').append(
                                 "<tr>" +
                                     "<td>" + feed.contentlets[i].submittedDate + "</td>" +
-                                    "<td>" + feed.contentlets[i].senderEmail + "</td>" +
+                                    "<td>" + feed.contentlets[i].name + "</td>" +
                                     "<td>" + feed.contentlets[i].recipient + "</td>" +
                                     "<td>" + feed.contentlets[i].deliveryLocation + "</td>" +
-                                    "<td>" + feed.contentlets[i].deliveryEmail + "</td>" +
-                                    "<td>" + feed.contentlets[i].status + "   <button value='" + feed.contentlets[i].inode + "' name='print' id='print' class='print'>Print</button></td>" +
+                                    "<td>" + itemStatus + "</td>" +
+                                    "<td><button value='" + feed.contentlets[i].inode + "' name='print' id='print' class='print'>Print</button></td>" +
                                 "</tr>"
                             );
                         }
@@ -139,12 +153,12 @@
                 });
 			};
             
-            $('${esc.h}eCardStatus').change(function() {
-                var stat = $(this).val();
+            ${esc.d}('${esc.h}submitSearch').click(function() {
+                var stat = ${esc.d}("${esc.h}eCardStatus").val();
                 showeCards(stat);
                 });            
             
-            showeCards(null);
+            showeCards($('${esc.h}eCardStatus').val());
         });
     </script>
 
@@ -155,8 +169,8 @@
 	               <th>From</th>
 	               <th>Deliver To</th>
 	               <th>Room</th>
-	               <th>To Email</th>
-	               <th>Current Action</th>
+	               <th>Status</th>
+	               <th></th>
                 </thead>
                 <tbody>
                 </tbody>
