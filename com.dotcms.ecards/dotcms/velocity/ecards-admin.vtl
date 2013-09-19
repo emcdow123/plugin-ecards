@@ -30,13 +30,11 @@
 		        
                         #set($structure = $structures.findStructureByName("eCards"))
                         #set($fields = $structures.getFields($structure))
-                        #set($fieldDefaultValue = "pending")
+                        #set($fieldDefaultValue = "No Action Currently")
                         #set($selField = $structures.findFieldByVarName($structure,"status"))
                         #set($valuesSplit = $selField.values.split("\n"))
 
                         <select id="eCardStatus" name="eCardStatus">
-                            
-                                <option value="">Select an option</option>
                                 
                                 #foreach($value in $valuesSplit)
                                     #set($labelValue = $value.split('\|'))
@@ -64,11 +62,23 @@
 	</div>
 	
         <script type="text/javascript">
-        
+            var statusValues = new Array();
+
+            #foreach($value in $valuesSplit)
+                #set($labelValue = $value.split('\|'))
+                #set($label = $listTool.get($labelValue, 0).trim())
+                #if($listTool.size($value.split("|")) > 1)
+                    #set($value = $listTool.get($labelValue, 1).trim())
+                #else
+                    #set($value = $listTool.get($labelValue, 0).trim())
+                #end
+                statusValues.push("$value");
+            #end
+
             var printEcard = function(id){
                 ${esc.d}.ajax({
                     type: 'GET',
-                    url: '/api/content/inode/' + id,
+                    url: '/api/content/id/' + id,
                     dataType: 'json',
                     success: function(feed) {
                         var eCardPrint = window.open();
@@ -129,26 +139,41 @@
                     dataType: 'json',
                     success: function(feed) {
                         ${esc.d}('#eCardsTable tbody').empty();
+                        var identifier = "";
                         for(var i=0, l=feed.contentlets.length; i < l && i < 16; ++i){
-                            itemStatus = feed.contentlets[i].status;
-                            itemStatus = itemStatus.charAt(0).toUpperCase() + itemStatus.slice(1);
+                            identifier = feed.contentlets[i].identifier;
+                            var contentletString = "<tr><td>" + feed.contentlets[i].submittedDate + "</td>";
+                            contentletString += "<td>" + feed.contentlets[i].name + "</td>";
+                            contentletString += "<td>" + feed.contentlets[i].recipient + "</td>";
+                            contentletString += "<td>" + feed.contentlets[i].deliveryLocation + "</td><td><select class='eCardStatusUpdate'>";
 
-                            ${esc.d}('#eCardsTable tbody').append(
-                                "<tr>" +
-                                    "<td>" + feed.contentlets[i].submittedDate + "</td>" +
-                                    "<td>" + feed.contentlets[i].name + "</td>" +
-                                    "<td>" + feed.contentlets[i].recipient + "</td>" +
-                                    "<td>" + feed.contentlets[i].deliveryLocation + "</td>" +
-                                    "<td>" + itemStatus + "</td>" +
-                                    "<td><button value='" + feed.contentlets[i].inode + "' name='print' id='print' class='print'>Print</button></td>" +
-                                "</tr>"
-                            );
+                            for(var t=0; t < statusValues.length; t++){
+                                if(statusValues[t] == feed.contentlets[i].status){
+                                    contentletString += "<option id='status"+statusValues[t]+"' value='"+statusValues[t]+"' selected='selected'>"+statusValues[t]+"</option>";
+                                } else {
+                                    contentletString += "<option id='status"+statusValues[t]+"' value='"+statusValues[t]+"'>"+statusValues[t]+"</option>"
+                                }
+                            }
+
+                            contentletString += "</select></td>";
+                            contentletString += "<td><button value='" + identifier + "' name='print' id='print' class='print'>Print</button></td></tr>";
+
+                            ${esc.d}('#eCardsTable tbody').append(contentletString);
+
+                            ${esc.d}('.eCardStatusUpdate').change(function() {
+                                var newStatus = $(this).val();
+                                ${esc.d}.ajax({
+                                    type: 'GET',
+                                    url: '/app/helloworld/?ident=' + identifier + '&status=' + newStatus
+                                });
+                            });
                         }
                         
                         $('.print').click(function() {
                             var node = $(this).val(); 
                             printEcard(node);
-                            });
+                        });
+
                     }
                 });
 			};
@@ -156,7 +181,8 @@
             ${esc.d}('${esc.h}submitSearch').click(function() {
                 var stat = ${esc.d}("${esc.h}eCardStatus").val();
                 showeCards(stat);
-                });            
+                });
+            
             
             showeCards($('${esc.h}eCardStatus').val());
         });
