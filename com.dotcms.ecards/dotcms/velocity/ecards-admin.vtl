@@ -164,7 +164,10 @@
                                 var newStatus = $(this).val();
                                 ${esc.d}.ajax({
                                     type: 'GET',
-                                    url: '/app/helloworld/?ident=' + identifier + '&status=' + newStatus
+                                    url: '/app/helloworld/?ident=' + identifier + '&status=' + newStatus,
+                                    success: function(){
+                                        showeCards(status);
+                                    }
                                 });
                             });
                         }
