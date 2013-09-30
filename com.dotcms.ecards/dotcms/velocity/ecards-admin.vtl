@@ -127,9 +127,8 @@
             ${esc.d}("${esc.h}startDate").datepicker("setDate", -3);
             ${esc.d}("${esc.h}endDate").datepicker("setDate", +3);
 
-            var showeCards = function(stat) {
-                var e = document.getElementById("eCardStatus");
-                var status = e.options[e.selectedIndex].value;
+            var showeCards = function() {
+                var status = ${esc.d}("${esc.h}eCardStatus").val();
                 var start = ${esc.d}('${esc.h}altStartDate').val();
                 var end = ${esc.d}('${esc.h}altEndDate').val();
                 
@@ -142,7 +141,7 @@
                         var identifier = "";
                         for(var i=0, l=feed.contentlets.length; i < l && i < 16; ++i){
                             identifier = feed.contentlets[i].identifier;
-                            var contentletString = "<tr><td>" + feed.contentlets[i].submittedDate + "</td>";
+                            var contentletString = "<tr id='" + identifier + "'><td>" + feed.contentlets[i].submittedDate + "</td>";
                             contentletString += "<td>" + feed.contentlets[i].name + "</td>";
                             contentletString += "<td>" + feed.contentlets[i].recipient + "</td>";
                             contentletString += "<td>" + feed.contentlets[i].deliveryLocation + "</td><td><select class='eCardStatusUpdate'>";
@@ -162,11 +161,14 @@
 
                             ${esc.d}('.eCardStatusUpdate').change(function() {
                                 var newStatus = $(this).val();
+                                var ident = $(this).closest("tr").attr("id");
                                 ${esc.d}.ajax({
                                     type: 'GET',
-                                    url: '/app/helloworld/?ident=' + identifier + '&status=' + newStatus,
-                                    success: function(){
-                                        showeCards(status);
+                                    url: '/app/helloworld/?ident=' + ident + '&status=' + newStatus,
+                                    success: function(feed){
+                                        if(feed.status === "OK"){
+                                            $("#" + ident).css("background-color", "yellow").html("<td colspan='6'>This card has been updated</td>");
+                                        }
                                     }
                                 });
                             });
@@ -182,12 +184,10 @@
 			};
             
             ${esc.d}('${esc.h}submitSearch').click(function() {
-                var stat = ${esc.d}("${esc.h}eCardStatus").val();
-                showeCards(stat);
+                showeCards();
                 });
             
-            
-            showeCards($('${esc.h}eCardStatus').val());
+            showeCards();
         });
     </script>
 
@@ -195,11 +195,11 @@
             <table id="eCardsTable" name="eCardsTable">
                 <thead>
                     <th>Submitted</th>
-	               <th>From</th>
-	               <th>Deliver To</th>
-	               <th>Room</th>
-	               <th>Status</th>
-	               <th></th>
+                    <th>From</th>
+                    <th>Deliver To</th>
+                    <th>Room</th>
+                    <th>Status</th>
+                    <th></th>
                 </thead>
                 <tbody>
                 </tbody>

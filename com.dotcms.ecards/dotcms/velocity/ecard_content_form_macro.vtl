@@ -148,8 +148,11 @@ var theme = 'dmundra';
 		$relationShipsError
 	</div>
 </div>
-#set($contentAutoPublish=true)
+
 #elseif(($structures.haveEditPermision($structure, null) || ($UtilMethods.isSet($user) && $structures.haveEditPermision($structure, $user))) && $_hasEditPermissionOnContent)
+
+	#set($contentAutoPublish=true)
+	#set($contentUseCaptcha=true)
 
 	#if($UtilMethods.isSet($contentAutoPublish))
 		#set($options = "${options}contentAutoPublish=${contentAutoPublish};")
@@ -1035,6 +1038,8 @@ var theme = 'dmundra';
     	#end
 
     	#if($contentUseCaptcha || $contentUseAudioCaptcha)
+    		customErrorMessages["captcha"]="You must correctly enter the validation code";
+
 	    	if(!lengthValid(document.getElementById("captcha"), 1, "captcha")){
 				return false;
 			}
