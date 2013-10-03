@@ -84,8 +84,10 @@
                         var eCardPrint = window.open();
                         
                         eCardPrint.document.write("<link rel='stylesheet' type='text/css' href='/ecards/css/ecards-print-style.css'>" +
-                            "<div>" +
-                                "<img src='/ecards/gallery/baptist.png'></img>" +
+                            "<header>" +
+                                "<img class='logo' src='/ecards/gallery/logo.png'></img>" +
+                            "</header>" +
+                            "<div class='container'>" +
                                 "<div class='non-semantic-protector'>" +
                                     "<h1 class='ribbon'>" + 
                                         "<strong class='ribbon-content'>From: " + feed.contentlets[0].name + "</strong>" +
@@ -94,7 +96,7 @@
                                         "<strong class='ribbon-content'>To: " + feed.contentlets[0].recipient + "</strong>" +
                                     "</h1>" +
                                 "</div>" +
-                                "<p>Message: " + feed.contentlets[0].message + "</p>" +
+                                "<p class='message'>Message: " + feed.contentlets[0].message + "</p>" +
                                 "<img class='eCardImage' src='/contentAsset/raw-data/" + feed.contentlets[0].image + "/fileAsset'></img>" +
                             "</div>");
                         

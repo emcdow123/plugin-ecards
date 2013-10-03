@@ -8,6 +8,7 @@
   text-align: center;
   padding: 1em 2em; /* Adjust to suit */
   margin: 0 0 3em; /* Based on 24px vertical rhythm. 48px bottom margin - normally 24 but the ribbon 'graphics' take up 24px themselves so we double it. */
+  width: 500px;
 }
 .ribbon:before, .ribbon:after {
   content: "";
@@ -56,5 +57,32 @@
  -webkit-border-radius: 10px;
  -khtml-border-radius: 10px;
  behavior: url(/ecards/htc/PIE.htc);
+ top: 50%;
+ left: 50%;
+ position: relative;
+ margin-left: -300px;
+ width: 600px;
 }
- 
+
+header{
+  position: relative;
+  display: block;
+  margin-bottom: 20px;
+ }
+
+ .logo{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-left: -225px;
+ }
+
+ .message{
+  text-align: center;
+  width: 550px;
+  margin: 0 auto 20px;
+ }
+
+ .container{
+  position: relative;
+ }

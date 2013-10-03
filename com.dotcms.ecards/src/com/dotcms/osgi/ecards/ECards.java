@@ -136,8 +136,7 @@ public class ECards {
 	/**
 	 * Role
 	 */
-	public static final String ECARD_ADMIN_ROLE_NAME = "eCards Admin";
-	public static final String ECARD_ADMIN_ROLE_KEY= "eCard";
+	public static final String ECARD_ADMIN_ROLE_NAME = "eCards Admin Role";
 	public static final String ECARD_ADMIN_ROLE_DESCRIPTION = "This role receives email notifications of ecards to print";
 
 	/**
@@ -402,9 +401,8 @@ public class ECards {
 
         Field wasEmailed = form.getFieldVar(FORM_WAS_EMAILED_VAR_NAME);
         if(!UtilMethods.isSet(wasEmailed) || !UtilMethods.isSet(wasEmailed.getInode())) {
-        	wasEmailed = new Field(FORM_WAS_EMAILED_FIELD,Field.FieldType.TEXT. Field.DataType.BOOL, form, false, false, false, 18, true, true, false);
+        	wasEmailed = new Field(FORM_WAS_EMAILED_FIELD,Field.FieldType.TEXT, Field.DataType.BOOL, form, false, false, false, 18, true, true, false);
         	wasEmailed.setVelocityVarName(FORM_WAS_EMAILED_VAR_NAME);
-        	wasEmailed.setDefaultValue(false);
         	wasEmailed.setFieldRelationType("");
         	FieldFactory.saveField(wasEmailed);
         	FieldsCache.addField(wasEmailed);
@@ -417,17 +415,21 @@ public class ECards {
 		/**
 		 * Add the eCards admin role if this doesn't exist
 		 */
-		Role eCardsAdmin = roleAPI.loadRoleByKey(ECARD_ADMIN_ROLE_KEY);
+		Role eCardsAdmin = roleAPI.findRoleByName(ECARD_ADMIN_ROLE_NAME, null);
+		System.out.println("Ecards admin" + eCardsAdmin);
+		System.out.println("Ecards admin ID" + (eCardsAdmin==null ? null : eCardsAdmin.getId()));
 		if(!UtilMethods.isSet(eCardsAdmin) || !UtilMethods.isSet(eCardsAdmin.getId())){
+			System.out.println("We are inside the if");
 			eCardsAdmin = new Role();
-			eCardsAdmin.setName(ECARD_ADMIN_ROLE_NAME);
-			eCardsAdmin.setRoleKey(ECARD_ADMIN_ROLE_KEY);	
+			eCardsAdmin.setName(ECARD_ADMIN_ROLE_NAME);	
 			eCardsAdmin.setDescription(ECARD_ADMIN_ROLE_DESCRIPTION);	
 			eCardsAdmin.setSystem(false);
 			eCardsAdmin.setEditLayouts(false);
 			eCardsAdmin.setEditPermissions(false);
 			eCardsAdmin.setEditUsers(true);
 			roleAPI.save(eCardsAdmin);
+		} else {
+			System.out.println("Else, we are inside the if");
 		}
 
 	}
